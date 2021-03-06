@@ -20,4 +20,11 @@ class Post extends Model
             ]
         ];
     }
+
+    //Esta relacion es un post pertenece a un usuario
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

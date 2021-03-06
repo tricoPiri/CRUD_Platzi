@@ -40,4 +40,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    //Esta es una relacion que le especificamos a laravel, en la BD ya las tenemos
+    //pero a laravel le tenemos que decir que existen mediante la siguiente forma
+    //la funcion es posts por que un usuario puede tener muchos posts
+    //si solo el usuario pudiera tener un solo post seria la funcion post como se llamaria
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }
