@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\Backend\PostController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +14,19 @@ use App\Http\Controllers\PageController;
 |
 */
 
-Route::get('/', [PageController::class, 'posts'])->name('posts.get');
+//Route::get('/', [PageController::class, 'posts'])->name('posts.get');
+
+Route::get('/', function(){
+    return view('welcome');
+});
+
 Route::get('blog/{post}',[PageController::class, 'post'])->name('post.get');
 
+Route::resource('posts', PostController::class)
+    ->middleware('auth')
+    ->except('show');
+
+
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
