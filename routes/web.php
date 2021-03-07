@@ -14,11 +14,12 @@ use App\Http\Controllers\Backend\PostController;
 |
 */
 
-//Route::get('/', [PageController::class, 'posts'])->name('posts.get');
-
+Route::get('/', [PageController::class, 'posts'])->name('posts.get');
+/*
 Route::get('/', function(){
     return view('welcome');
 });
+*/
 
 Route::get('blog/{post}',[PageController::class, 'post'])->name('post.get');
 
