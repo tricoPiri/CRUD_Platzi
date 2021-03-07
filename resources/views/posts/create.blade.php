@@ -82,7 +82,10 @@
 
         <main class="py-4">
             @yield('content')
-            <form action="{{ route('posts.create') }}" method="POST" enctype="multipart/form-data">
+            @if(session('status'))
+                {{ session('status') }}
+            @endif
+            <form action="{{ route('posts.store') }}" method="POST" enctype="multipart/form-data">
                 <label>Titulo</label>
                 <input type="text" name="title" required>
                 <br/>
