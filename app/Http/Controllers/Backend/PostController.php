@@ -80,9 +80,25 @@ class PostController extends Controller
      * @param  \App\Models\POST  $pOST
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, POST $pOST)
+    public function update(PostRequest $request, $id)
     {
-        //
+        $post = Post::find($id);
+
+        $post->title = $request->title;
+        $post->body = $request->body;
+        $post->iframe = $request->iframe;
+        $post->user_id = auth()->user()->id;
+
+        if($request->file('file'))
+        {
+            $post->image =  $request->file('file')->store('post', 'public');
+            $post->save();
+        }else{
+            $post->save();
+        }
+
+        return back()->with('status', 'editado con éxito');
+
     }
 
     /**
@@ -91,8 +107,18 @@ class PostController extends Controller
      * @param  \App\Models\POST  $pOST
      * @return \Illuminate\Http\Response
      */
-    public function destroy(POST $pOST)
+
+    //1. asi tambien se puede
+    //public function destroy(Post $post)
+    public function destroy($id)
     {
-        //
+        //1. asi tambien se podria
+        //$post->delete();
+
+        $post = new Post();
+        $post->id = $id;
+        $post->destroy($post->id);
+
+        return back();
     }
 }
